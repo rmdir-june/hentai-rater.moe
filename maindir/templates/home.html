@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+           rel="stylesheet"
+           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+           crossorigin="anonymous"
+     />
+</head>
+<style>
+    html{
+    height: 100%;
+    width: 100%;
+    }
+    body{
+    height: 100%;
+    width: 100%;
+    background-color: #101820;
+    overflow: hidden;
+    }
+    .column{
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 0px solid rgba(41, 33, 54, 1);
+    color: #fff;
+    width: 100%;
+    }
+    .column:hover{
+    transform: scale(1.025);
+    }
+    .empty{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    }
+    .field {
+    background-color: rgba(1, 1, 1, 0);
+    border: 0px solid rgba(1, 1, 1, 0);
+    outline: none;
+    font-style: italic;
+    color: #cf6bdd;
+    font-size: 24px;
+    width: 100%;
+    }
+    .container{
+    height: 100%;
+    }
+    .navf{
+    text-decoration: none;
+    color: #cf6bdd;
+    }
+    .navf:hover{
+    text-decoration: none;
+    color: #fff;
+    }
+    .alert{
+    max-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    }
+    .row-2{
+    height: 10%;
+    }
+    .header{
+    color: #cf6bdd;
+    white-space: nowrap;
+    }
+    .row-3{
+    height: 30%;
+    }
+    .back{
+    vertical-align: bottom;
+    }
+    .column2{
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 0px solid rgba(41, 33, 54, 1);
+    color: #fff;
+    width: 100%;
+    }
+    .idk{
+    color: #EAACF3;
+    }
+    .containy{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .about{
+    height: 80%;
+    width: 80%;
+    }
+</style>
+<body>
+{% block content %}
+{% if loading %}
+<div class="spinner-border" role="status">
+  <span class="sr-only">Loading</span>
+</div>
+{% else %}
+{% if warning %}
+    <a href="/" class="navf">
+        <div class="alert alert-danger">
+          <strong>Woops!</strong> Please enter a valid url
+        </div>
+    </a>
+{% endif %}
+<p>
+    <a class="navf" href="/about">about</a>
+    <text class="idk">\</text>
+    <a class="navf" href="/">github</a>
+</p>
+{% if not response %}
+<div class="container">
+    <div class="row row-2"></div>
+    <div class="row row-2"></div>
+    <div class="row row-2"></div>
+    <div class="row row-2">
+    <div class="col empty"></div>
+        <div class="col empty">
+            <h1 class="header" align="center">Hentai-Rater</h1>
+        </div>
+        <div class="col empty"></div>
+    </div>
+    <div class="row row-2">
+        <div class="col column align-items-center shadow p-3 mb-5 rounded hover-zoom">
+            <form action="/" method="POST">
+                <input type="text" class="field" name="field" placeholder="Enter urls..."/>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row row-3"></div>
+    <div class="row row-3">
+        <div class="col empty"></div>
+        <div class="col column2 shadow p-3 mb-5 rounded">
+            <h1 class="header" align="center">{{header}}</h1>
+            <h3 style="color: white;" align="center">{{response}}</h3>
+            <a class="navf back" href="/">another..?</a>
+        </div>
+        <div class="col empty"></div>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}
+</body>
+</html>
