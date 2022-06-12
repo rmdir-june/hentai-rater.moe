@@ -1,10 +1,13 @@
-import selenium
+import selenium, os
 from bs4 import BeautifulSoup
 import re, requests
 from numpy import save
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from time import sleep
+from .config import token
+
+os.environ['GH_TOKEN'] = token
 
 hanime_points = {
     "bdsm": 6,
