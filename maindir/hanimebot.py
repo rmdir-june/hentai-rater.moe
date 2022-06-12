@@ -7,7 +7,6 @@ from webdriver_manager.firefox import GeckoDriverManager
 from time import sleep
 from .config import token
 
-os.environ['GH_TOKEN'] = token
 
 hanime_points = {
     "bdsm": 6,
@@ -77,7 +76,7 @@ stored_scores = dict()
 def main(urls):
     if " " not in urls:
         global stored_scores
-        if 'hanime' or 'hentaihaven' in urls:
+        if 'hanime' in urls or 'hentaihaven' in urls:
             if urls in stored_scores.keys():
                 header, response = rate_hanime(stored_scores[urls])
             else:
