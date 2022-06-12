@@ -7,6 +7,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from time import sleep
 from .config import token
 
+os.environ['GH_TOKEN'] = token
 
 hanime_points = {
     "bdsm": 6,
