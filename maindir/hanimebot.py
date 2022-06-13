@@ -8,6 +8,7 @@ from time import sleep
 from .config import token
 
 os.environ['GH_TOKEN'] = token
+os.environ["DISPLAY"] = ":0"
 
 hanime_points = {
     "bdsm": 6,
@@ -76,9 +77,9 @@ stored_scores = dict()
 
 def main(urls):
     if " " not in urls:
-        global stored_scores
-        if 'hanime' in urls or 'hentaihaven' in urls:
-            if urls in stored_scores.keys():
+        if 'hanime' in urls:
+            print(stored_scores)
+            if urls in stored_scores:
                 header, response = rate_hanime(stored_scores[urls])
             else:
                 links = get_hanime_links(urls)
@@ -87,6 +88,7 @@ def main(urls):
                 rank_value = get_hanime_value(links)
                 header, response = rate_hanime(rank_value)
 
+                print(urls, "fuckalluh")
                 stored_scores[urls] = rank_value
 
             save("scores.npy", stored_scores)
