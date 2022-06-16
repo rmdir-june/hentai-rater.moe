@@ -76,6 +76,7 @@ stored_scores = dict()
 
 
 def main(urls):
+    print("feedback")
     if " " not in urls:
         if 'hanime' in urls:
             print(stored_scores)
@@ -121,6 +122,10 @@ def get_nhentai_links(urls):
     elif "nhentai.io" in urls:
         links = [link['href'] for link in soup.find_all('a', {"href": re.compile('^https://nhentai.io/genre/')})]
         io = True
+    else:
+        links = None
+        io = None
+        print("error with io")
     return links, io
 
 
