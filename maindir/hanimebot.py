@@ -1,11 +1,11 @@
 import selenium, os
 from bs4 import BeautifulSoup
 import re, requests
-from numpy import save
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from time import sleep
 from .config import token
+import json
 
 os.environ['GH_TOKEN'] = token
 os.environ["DISPLAY"] = ":0"
@@ -72,14 +72,15 @@ nhentai_rank = {
     (50, 500): ["100% Degen", "dial 911.."]
 }
 
-stored_scores = dict()
+with open('scores.json') as scores:
+    stored_scores = json.load(scores)
+    print("scores:", stored_scores)
 
 
 def main(urls):
     print("feedback")
     if " " not in urls:
         if 'hanime' in urls:
-            print(stored_scores)
             if urls in stored_scores:
                 header, response = rate_hanime(stored_scores[urls])
             else:
@@ -92,7 +93,10 @@ def main(urls):
                 print(urls, "fuckalluh")
                 stored_scores[urls] = rank_value
 
-            save("scores.npy", stored_scores)
+            jason = json.dumps(stored_scores)
+            f = open('scores.json', 'w')
+            f.write(jason)
+            f.close()
 
             return header, response
         if 'nhentai' in urls:
@@ -105,7 +109,11 @@ def main(urls):
 
                 stored_scores[urls] = rank_value
 
-            save("scores.npy", stored_scores)
+            jason = json.dumps(stored_scores)
+            f = open('scores.json', 'w')
+            f.write(jason)
+            f.close()
+
             return header, response
     return None, None
 
@@ -113,7 +121,7 @@ def main(urls):
 def get_nhentai_links(urls):
     io = bool()
     links = str()
-    html = requests.get(urls)
+    html = requests.get(urls, timeout=0.5)
     soup = BeautifulSoup(html.text, 'html.parser')
 
     if "nhentai.net" in urls:
@@ -215,3 +223,4 @@ def rate_hanime(rank_value):
             header = hanime_rank[key][0]
             response = hanime_rank[key][1]
     return header, response
+
